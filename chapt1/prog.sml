@@ -19,7 +19,8 @@ val prog =
                 OpExp(NumExp 10, Times, IdExp "a"))),
         PrintStm[IdExp "b"]))
 
-fun maxargs (PrintStm es) = Int.max (length es, List.foldl Int.max 0 (map maxargs_exp es))
+fun maxargs (PrintStm es) = 
+        Int.max (length es, List.foldl Int.max 0 (map maxargs_exp es))
     | maxargs (CompoundStm (fst, snd)) = Int.max (maxargs fst, maxargs snd)
     | maxargs (AssignStm (id, exp)) = maxargs_exp exp
 and maxargs_exp (OpExp (left,_,right)) = Int.max (maxargs_exp left, maxargs_exp right)
